@@ -1,5 +1,7 @@
 # The ICARUS Attack Simulator
 
+The original code is taken from [giacgiuliari/icarus-framework](https://github.com/giacgiuliari/icarus-framework)
+
 This repository cointains the code for a new, extensible and customizable simulator for the ICARUS attack on satellite networks.  
 More specifically, two libraries are provided:
 * `icarus_simulator`: code for the ICARUS simulator;
