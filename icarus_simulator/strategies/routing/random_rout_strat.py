@@ -1,4 +1,9 @@
+
 #  2021 Ruben Fratty and Yuval Saar
+#  a1 = 0.703
+#  a2 = 0.07
+#  a3 = 0.143
+#  a4 = 0.084
 import networkx as nx
 
 from icarus_simulator.strategies.routing.base_routing_strat import BaseRoutingStrat
@@ -25,6 +30,10 @@ class RandomRoutStrat(BaseRoutingStrat):
         return "random"
 
     @property
+    def name2(self) -> str:
+        return "PROPOSED"
+
+    @property
     def param_description(self) -> str:
         return f"{self.desirability_stretch}k{self.k}"
 
@@ -32,15 +41,16 @@ class RandomRoutStrat(BaseRoutingStrat):
             self, pair: SdPair, grid: GridPos, network: nx.Graph, coverage: Coverage
     ) -> LbSet:
 
-        # Compute a random number between [0,1]
+        # Random number between [0,1]
         a = random()
 
-        if 0 <= a < 0.25:
+        if 0 <= a < 0.703:
             return KSPRoutStrat(self.desirability_stretch, self.k).compute(pair, grid, network, coverage)
-        elif 0.25 <= a < 0.5:
+        elif 0.703 <= a < 0.773:
             return KDGRoutStrat(self.desirability_stretch, self.k).compute(pair, grid, network, coverage)
-        elif 0.5 <= a < 0.75:
+        elif 0.773 <= a < 0.916:
             return KDSRoutStrat(self.desirability_stretch, self.k).compute(pair, grid, network, coverage)
         else:
             return KLORoutStrat(self.desirability_stretch, self.k, self.esx_theta).compute(pair, grid, network,
                                                                                            coverage)
+
