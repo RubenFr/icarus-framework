@@ -24,7 +24,7 @@ class StatPlotBuilder:
     def __init__(self):
         self.fig, self.ax = plt.subplots()
         self.thick = 5
-        self.bins = 1000
+        self.bins = np.linspace(0, 1, 1000)
         self.fig.set_size_inches(14, 5)
         plt.xticks(fontsize=25)
         plt.yticks(fontsize=25)
@@ -46,8 +46,8 @@ class StatPlotBuilder:
         return self
 
     # Add the legend
-    def legend(self) -> "StatPlotBuilder":
-        plt.legend(loc="lower right")
+    def legend(self, location) -> "StatPlotBuilder":
+        plt.legend(loc=location)
         return self
 
     # Set the line width
@@ -57,7 +57,7 @@ class StatPlotBuilder:
 
     # Set the bin number for the cdf/pdf
     def set_bins(self, bins: int) -> "StatPlotBuilder":
-        self.bins = bins
+        self.bins = np.linspace(0, 1, bins)
         return self
 
     # Set the scaling to zero
@@ -80,7 +80,7 @@ class StatPlotBuilder:
         self, data: List, label: str, weights: Optional[List] = None
     ) -> "StatPlotBuilder":
         # Weights None implies weights ignored
-        _, _, patches = self.ax.hist(
+        results, bins, patches = self.ax.hist(
             data,
             cumulative=True,
             density=True,
@@ -93,7 +93,7 @@ class StatPlotBuilder:
             weights=weights,
         )
         patches[0].set_xy(patches[0].get_xy()[:-1])  # Avoids vertical line at the end
-        return self
+        return {'cdf':results, 'cost':bins}
 
     # Add a PDF from data
     def pdf(
