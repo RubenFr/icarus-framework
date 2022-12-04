@@ -33,7 +33,13 @@ CONFIG = {
     "gweight": {"strat": [GDPWeightStrat], "dataset_file": [None]},
     "cover": {"strat": [AngleCovStrat], "min_elev_angle": [40]},
     "rout": {
-        "strat": [RandomRoutStrat],
+        "strat": [
+            KDGRoutStrat,
+            KDSRoutStrat,
+            KLORoutStrat,
+            KSPRoutStrat,
+            RandomRoutStrat
+        ],
         "desirability_stretch": [2.3],
         "k": [5],
         "esx_theta": [0.5],
